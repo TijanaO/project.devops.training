@@ -48,7 +48,6 @@ blocks:
             - pip install -r requirements.txt
             - pip install cyclonedx-bom
             - cyclonedx-py environment -o sbom.xml
-            - artifact push sbom.xml
             - cache store "pip-cache-$(checksum requirements.txt)" ~/.cache/pip
           artifacts: null
           paths:
