@@ -50,3 +50,6 @@ blocks:
             - cyclonedx-py environment -o sbom.xml
             - artifact push sbom.xml
             - cache store "pip-cache-$(checksum requirements.txt)" ~/.cache/pip
+          artifacts: null
+          paths:
+            - sbom.xml
