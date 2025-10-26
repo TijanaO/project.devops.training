@@ -23,5 +23,5 @@ blocks:
           commands:
             - checkout
             - sem-version python 3.11
-            - cache restore
+            - cache restore "pip-cache-$(checksum requirements.txt)"
             - pylint .
