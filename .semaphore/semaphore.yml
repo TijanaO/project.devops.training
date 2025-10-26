@@ -50,3 +50,4 @@ blocks:
             - cyclonedx-py environment -o sbom.xml
             - semaphore workflow-artifact store sbom.xml
             - cache store "pip-cache-$(checksum requirements.txt)" ~/.cache/pip
+          artifacts: sbom.xml
