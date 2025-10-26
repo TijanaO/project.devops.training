@@ -47,5 +47,5 @@ blocks:
             - cache restore "pip-cache-$(checksum requirements.txt)"
             - pip install -r requirements.txt
             - pip install cyclonedx-bom
-            - cyclonedx-py requirements -r requirements.txt -o sbom.xml
+            - cyclonedx-py -r requirements.txt -o sbom.xml
             - semaphore workflow-artifact store sbom.xml
