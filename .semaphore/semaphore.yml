@@ -14,7 +14,6 @@ blocks:
             - sem-version python 3.11
             - cache restore
             - pip install -r requirements.txt
-            - pip install pylint
             - cache store "pip-cache-$(checksum requirements.txt)" ~/.cache/pip
   - name: Lint
     task:
@@ -24,4 +23,5 @@ blocks:
             - checkout
             - sem-version python 3.11
             - cache restore "pip-cache-$(checksum requirements.txt)"
+            - pip install lint
             - pylint src
