@@ -45,10 +45,8 @@ blocks:
             - checkout
             - sem-version python 3.11
             - cache restore "pip-cache-$(checksum requirements.txt)"
-            - python -m venv .venv
-            - source .venv/bin/activate
             - pip install -r requirements.txt
             - pip install cyclonedx-bom
-            - cyclonedx-py venv -o sbom.xml
+            - cyclonedx-py enviroment -o sbom.xml
             - semaphore workflow-artifact store sbom.xml
             - cache store "pip-cache-$(checksum requirements.txt)" ~/.cache/pip
