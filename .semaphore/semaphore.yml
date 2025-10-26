@@ -42,7 +42,7 @@ blocks:
       jobs:
         - name: 'Job #4'
           commands:
-            - chekout
+            - checkout
             - sem-version python 3.11
             - cache restore "pip-cache-$(checksum requirements.txt)"
             - pip install -r requirements.txt
