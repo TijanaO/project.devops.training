@@ -50,3 +50,8 @@ blocks:
             - cyclonedx-py environment -o sbom.xml
             - artifact push workflow sbom.xml
             - cache store "pip-cache-$(checksum requirements.txt)" ~/.cache/pip
+promotions:
+  - name: Deploy to DockerHub
+    pipeline_file: pipeline2.yml
+    auto_promote_on:
+      - result: passed

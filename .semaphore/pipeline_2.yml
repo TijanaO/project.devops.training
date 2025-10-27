@@ -1,0 +1,26 @@
+version: v1.0
+name: Pipeline 2
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu2004
+blocks:
+  - name: Build Docker Image
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands:
+            - checkout
+            - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+            - 'docker build -t my-app:${SEMAPHORE_GIT_SHA} .'
+            - 'docker tag my-app:${SEMAPHORE_GIT_SHA} tijanao/projecttijana:latest'
+            - 'docker tag my-app:${SEMAPHORE_GIT_SHA} tijanao/projecttijana:${SEMAPHORE_GIT_SHA}'
+  - name: Push Docker Image
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands:
+            - checkout
+            - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+            - 'docker push tijanao/projecttijana:latest'
+            - 'docker push tijanao/projecttijana:${SEMAPHORE_GIT_SHA}'
