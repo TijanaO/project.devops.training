@@ -22,7 +22,7 @@ blocks:
   - name: Push Docker Image
     task:
       jobs:
-        - name: 'Job #1'
+        - name: 'Job #2'
           commands:
             - checkout
             - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
