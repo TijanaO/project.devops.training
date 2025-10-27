@@ -52,6 +52,6 @@ blocks:
             - cache store "pip-cache-$(checksum requirements.txt)" ~/.cache/pip
 promotions:
   - name: Deploy to DockerHub
-    pipeline_file: pipeline2.yml
+    pipeline_file: pipeline_2.yml
     auto_promote_on:
       - result: passed
