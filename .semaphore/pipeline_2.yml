@@ -10,14 +10,16 @@ blocks:
       jobs:
         - name: 'Job #1'
           commands:
-            - checkout
+            - ' checkout'
+            - echo "Provera gde se nalazimo i da li Dockerfile postoji"
             - pwd
+            - ls -la
             - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
+            - echo "Build Docker image"
             - 'docker build -t projecttijana:${SEMAPHORE_GIT_SHA} .'
+            - echo "Tag Docker image"
             - 'docker tag projecttijana:${SEMAPHORE_GIT_SHA} tijanao/projecttijana:latest'
             - 'docker tag projecttijana:${SEMAPHORE_GIT_SHA} tijanao/projecttijana:${SEMAPHORE_GIT_SHA}'
-            - 'docker push tijanao/projecttijana:latest'
-            - 'docker push tijanao/projecttijana:${SEMAPHORE_GIT_SHA}'
       secrets:
         - name: dockerhub-credentials
   - name: Push Docker Image
