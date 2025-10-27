@@ -11,8 +11,6 @@ blocks:
         - name: 'Job #1'
           commands:
             - checkout
-            - cd project.devops.training
-            - cat Dockerfile
             - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
             - 'docker build -t projecttijana:${SEMAPHORE_GIT_SHA} .'
             - 'docker tag projecttijana:${SEMAPHORE_GIT_SHA} tijanao/projecttijana:latest'
