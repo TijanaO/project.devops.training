@@ -17,6 +17,8 @@ blocks:
             - 'docker tag projecttijana:${SEMAPHORE_GIT_SHA} tijanao/projecttijana:${SEMAPHORE_GIT_SHA}'
             - 'docker push tijanao/projecttijana:latest'
             - 'docker push tijanao/projecttijana:${SEMAPHORE_GIT_SHA}'
+      secrets:
+        - name: dockerhub-credentials
   - name: Push Docker Image
     task:
       jobs:
@@ -26,3 +28,5 @@ blocks:
             - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
             - 'docker push tijanao/projecttijana:latest'
             - 'docker push tijanao/projecttijana:${SEMAPHORE_GIT_SHA}'
+      secrets:
+        - name: dockerhub-credentials

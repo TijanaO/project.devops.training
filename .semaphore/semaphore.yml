@@ -15,6 +15,8 @@ blocks:
             - cache restore
             - pip install -r requirements.txt
             - cache store "pip-cache-$(checksum requirements.txt)" ~/.cache/pip
+      secrets:
+        - name: dockerhub-credentials
   - name: Lint
     task:
       jobs:
@@ -26,6 +28,8 @@ blocks:
             - pip install -r requirements.txt
             - pip install pylint
             - pylint src
+      secrets:
+        - name: dockerhub-credentials
   - name: 'Dependency Security Scan '
     task:
       jobs:
@@ -37,6 +41,8 @@ blocks:
             - pip install -r requirements.txt
             - pip install safety
             - safety check -r requirements.txt
+      secrets:
+        - name: dockerhub-credentials
   - name: Generate SBOM
     task:
       jobs:
@@ -50,6 +56,8 @@ blocks:
             - cyclonedx-py environment -o sbom.xml
             - artifact push workflow sbom.xml
             - cache store "pip-cache-$(checksum requirements.txt)" ~/.cache/pip
+      secrets:
+        - name: dockerhub-credentials
 promotions:
   - name: Deploy to DockerHub
     pipeline_file: pipeline_2.yml
