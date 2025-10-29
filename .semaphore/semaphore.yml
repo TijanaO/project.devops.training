@@ -58,6 +58,27 @@ blocks:
             - cache store "pip-cache-$(checksum requirements.txt)" ~/.cache/pip
       secrets:
         - name: dockerhub-credentials
+  - name: Build Docker Image
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands:
+            - checkout
+            - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
+            - echo "Build Docker image"
+            - 'docker build -t projecttijana:${SEMAPHORE_GIT_SHA} .'
+            - echo "Tag Docker image"
+            - 'docker tag projecttijana:${SEMAPHORE_GIT_SHA} tijanao/projecttijana:latest'
+            - 'docker tag projecttijana:${SEMAPHORE_GIT_SHA} tijanao/projecttijana:${SEMAPHORE_GIT_SHA}'
+  - name: Push Docker image
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands:
+            - checkout
+            - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+            - 'docker push tijanao/projecttijana:latest'
+            - 'docker push tijanao/projecttijana:${SEMAPHORE_GIT_SHA}'
 promotions:
   - name: Deploy to DockerHub
     pipeline_file: pipeline_2.yml
