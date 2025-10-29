@@ -79,8 +79,3 @@ blocks:
             - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
             - 'docker push tijanao/projecttijana:latest'
             - 'docker push tijanao/projecttijana:${SEMAPHORE_GIT_SHA}'
-promotions:
-  - name: Deploy to DockerHub
-    pipeline_file: pipeline_2.yml
-    auto_promote_on:
-      - result: passed
