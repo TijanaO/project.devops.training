@@ -88,6 +88,8 @@ blocks:
           commands:
             - checkout
             - kubectl create namespace tijanaopacic
+      secrets:
+        - name: kubeconfig
   - name: Deploy  Image to Kubernetes
     task:
       jobs:
@@ -96,6 +98,8 @@ blocks:
             - checkout
             - kubectl apply -f deployment.yml -n tijanaopacic
             - kubectl rollout status deployment/tijana-app -n tijanaopacic
+      secrets:
+        - name: kubeconfig
   - name: Deploy Service to Kubernetes
     task:
       jobs:
@@ -103,3 +107,5 @@ blocks:
           commands:
             - checkout
             - kubectl apply -f service.yml -n tijanaopacic
+      secrets:
+        - name: kubeconfig
