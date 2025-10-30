@@ -20,7 +20,7 @@ blocks:
   - name: Lint
     task:
       jobs:
-        - name: 'Job #2'
+        - name: 'Job #1'
           commands:
             - checkout
             - sem-version python 3.11
@@ -33,7 +33,7 @@ blocks:
   - name: 'Dependency Security Scan '
     task:
       jobs:
-        - name: 'Job #3'
+        - name: 'Job #1'
           commands:
             - checkout
             - sem-version python 3.11
@@ -46,7 +46,7 @@ blocks:
   - name: Generate SBOM
     task:
       jobs:
-        - name: 'Job #4'
+        - name: 'Job #1'
           commands:
             - checkout
             - sem-version python 3.11
@@ -81,3 +81,25 @@ blocks:
             - 'docker push tijanao/projecttijana:latest'
       secrets:
         - name: dockerhub-credentials
+  - name: Create namespace
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands:
+            - checkout
+            - kubectl create namespace tijanaopacic
+  - name: Deploy  Image to Kubernetes
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands:
+            - checkout
+            - kubectl apply -f deployment.yml -n tijanaopacic
+            - kubectl rollout status deployment/tijana-app -n tijanaopacic
+  - name: Deploy Service to Kubernetes
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands:
+            - checkout
+            - kubectl apply -f service.yml -n tijanaopacic
