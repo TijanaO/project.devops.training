@@ -66,7 +66,6 @@ blocks:
             - checkout
             - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
             - 'docker build -t tijanao/projecttijana:${SEMAPHORE_GIT_SHA} .'
-            - 'docker push tijanao/projecttijana:${SEMAPHORE_GIT_SHA}'
       secrets:
         - name: dockerhub-credentials
   - name: Push Docker image
@@ -76,7 +75,8 @@ blocks:
           commands:
             - checkout
             - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
-            - 'docker pull tijanao/projecttijana:${SEMAPHORE_GIT_SHA}'
+            - 'docker build -t tijanao/projecttijana:${SEMAPHORE_GIT_SHA} .'
+            - 'docker push tijanao/projecttijana:${SEMAPHORE_GIT_SHA}'
             - 'docker tag tijanao/projecttijana:${SEMAPHORE_GIT_SHA} tijanao/projecttijana:latest'
             - 'docker push tijanao/projecttijana:latest'
       secrets:
