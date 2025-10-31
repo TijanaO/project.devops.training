@@ -25,10 +25,10 @@ blocks:
           commands:
             - checkout
             - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
-            - '''docker build -t tijanao/projecttijana:${SEMAPHORE_GIT_SHA} .'''
-            - '''docker push tijanao/projecttijana:${SEMAPHORE_GIT_SHA}'''
-            - '''docker tag tijanao/projecttijana:${SEMAPHORE_GIT_SHA} tijanao/projecttijana:latest'''
-            - '''docker push tijanao/projecttijana:latest'''
+            - 'docker build -t tijanao/projecttijana:${SEMAPHORE_GIT_SHA} .'
+            - 'docker push tijanao/projecttijana:${SEMAPHORE_GIT_SHA}'
+            - 'docker tag tijanao/projecttijana:${SEMAPHORE_GIT_SHA} tijanao/projecttijana:latest'
+            - 'docker push tijanao/projecttijana:latest'
 promotions:
   - name: Promotion 1
     pipeline_file: pipeline_5.yml
