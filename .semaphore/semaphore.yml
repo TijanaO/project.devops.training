@@ -58,6 +58,3 @@ blocks:
             - cache store "pip-cache-$(checksum requirements.txt)" ~/.cache/pip
       secrets:
         - name: dockerhub-credentials
-promotions:
-  - name: Promotion 1
-    pipeline_file: pipeline_3.yml
