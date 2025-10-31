@@ -1,0 +1,36 @@
+version: v1.0
+name: Pipeline 5
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu2004
+blocks:
+  - name: Create namespace
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands:
+            - checkout
+            - kubectl create namespace tijanaopacic || true
+      secrets:
+        - name: kubeconfig
+  - name: Deploy  Image to Kubernetes
+    task:
+      secrets:
+        - name: dockerhub-credentials
+        - name: kubeconfig
+      jobs:
+        - name: 'Job #1'
+          commands:
+            - checkout
+            - kubectl apply -f deployment.yml -n tijanaopacic
+            - kubectl rollout status deployment/tijana-app -n tijanaopacic
+  - name: Deploy Service to Kubernetes
+    task:
+      secrets:
+        - name: kubeconfig
+      jobs:
+        - name: 'Job #1'
+          commands:
+            - checkout
+            - kubectl apply -f service.yml -n tijanaopacic
